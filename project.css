@@ -1,0 +1,116 @@
+body { background-color: black; font-family: Arial, sans-serif; }
+
+p { color: white; }
+
+h3 { color: red; font-style: italic; }
+
+h1 { color: red; font-weight: 300; text-align: center; }
+
+h2 { color: white; text-align: center; }
+
+hr { border-color: rgb(255, 222, 6); }
+
+h4 { color: white; text-align: center; }
+
+ul { color: white; }
+
+li { color: white; }
+
+h1, h4 {
+    margin-bottom: 20px;
+  }
+  
+  /* Container for menu items */
+  .menu-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers items horizontally */
+    gap: 20px; /* Adds space between items */
+    padding: 20px;
+  }
+
+menu-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+ /* Individual menu item */
+.menu-item {
+    width: 300px; /* Ensures a uniform width */
+    padding: 15px;
+    border: 1px solid #ff5733;
+    border-radius: 10px;
+    background-color: #121111e6;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Standardize image size */
+  .menu-item img {
+    width: 100%;  /* Makes image responsive within its container */
+    height: 200px;
+    object-fit: cover; /* Ensures images fit uniformly */
+    border-radius: 5px;
+    
+  }
+  
+  /* Price and item description */
+  .menu-item p {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  /* Align dropdown and button */
+  .menu-item .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .menu-item select {
+    padding: 5px 15px;
+    font-size: 14px;
+  }
+  
+  /* Add to Cart button */
+  .menu-item button {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .menu-item button:hover {
+    background-color: #d9432a;
+  }
+
+  /* Add to Cart button */
+.menu-item button {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 16px 14x;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  /* Hover effect */
+  .menu-item button:hover {
+    background-color: #d9432a; /* Darker red */
+    transform: scale(1.1); /* Slightly enlarges the button */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
+  }
+
