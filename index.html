@@ -1,59 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cylindrical Progress Bar</title>
-    <style>
-        /* Progress bar container */
-        .progress-container {
-            position: relative;
-            width: 80%;
-            height: 30px;
-            background: #ddd;
-            border-radius: 15px;
-            margin: 50px auto;
-            overflow: hidden;
-        }
-
-        /* Progress fill */
-        .progress-bar {
-            width: 60%; /* Adjust this to control progress */
-            height: 100%;
-            background: linear-gradient(90deg, #ff7b00, #ffcc00);
-            border-radius: 15px;
-            transition: width 0.5s ease-in-out;
-        }
-
-        /* Stop points */
-        .stop {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 3px solid #ff7b00;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Positioning the stops */
-        .stop:nth-child(1) { left: 0%; }
-        .stop:nth-child(2) { left: 33%; }
-        .stop:nth-child(3) { left: 66%; }
-        .stop:nth-child(4) { left: 100%; }
-
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cylindrical Progress Bar with PNG Appearance</title>
+  <style>
+    /* Overall Page Style with Background Image */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: url('Payment_bg.jpg') no-repeat center center/cover;
+      font-family: Arial, sans-serif;
+    }
+    
+    /* Box Container with Custom Background Color */
+    .box {
+      width: 90%;
+      max-width: 900px;
+      padding: 60px;
+      border: 2px solid #040303;
+      border-radius: 15px;
+      background: #cd8b95; /* Custom box background color (AliceBlue) */
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+    }
+    
+    /* Progress Bar Container */
+    .progress-container {
+      position: relative;
+      width: 100%;
+      height: 30px;
+      background: #ddd;
+      border-radius: 15px;
+      margin: 30px auto;
+      overflow: hidden;
+    }
+    
+    /* Progress Fill */
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff7b00, #ffcc00);
+      border-radius: 15px;
+      transition: width 0.5s ease-in-out;
+    }
+    
+    /* Drop-Shaped Stops with Dark-Colored Border */
+    .stop {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border: 3px solid #333;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    /* Positioning the stops */
+    .progress-container .stop:nth-of-type(1) { left: 0%; }
+    .progress-container .stop:nth-of-type(2) { left: 33%; }
+    .progress-container .stop:nth-of-type(3) { left: 66%; }
+    .progress-container .stop:nth-of-type(4) { left: 100%; }
+    
+    /* PNG Images Container */
+    .png-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .png-container img {
+      width: 80px;
+      height: auto;
+      transition: opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+    
+    .png-container img.visible {
+      opacity: 1;
+    }
+    
+    /* Button Styling */
+    button {
+      background-color: #ff8c00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    
+    button:hover {
+      background-color: #e07b00;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="box">
+    <h2>Cylindrical Progress Bar</h2>
     <div class="progress-container">
-        <div class="progress-bar"></div>
-        <div class="stop"></div>
-        <div class="stop"></div>
-        <div class="stop"></div>
-        <div class="stop"></div>
+      <div class="progress-bar"></div>
+      <div class="stop"></div>
+      <div class="stop"></div>
+      <div class="stop"></div>
+      <div class="stop"></div>
     </div>
+    <!-- PNG images aligned with the stops -->
+    <div class="png-container">
+      <img src="bar_img1.png" alt="Stop 1" id="png0" class="visible">
+      <img src="bar_img2.png" alt="Stop 2" id="png1">
+      <img src="bar_img3.png" alt="Stop 3" id="png2">
+      <img src="bar_img4.png" alt="Stop 4" id="png3">
+    </div>
+    <button id="increaseBtn">Increase Progress</button>
+  </div>
+  
+  <script>
+    // Define stops at percentages corresponding to each stop (0%, 33%, 66%, 100%)
+    const stops = [0, 33, 66, 100];
+    let currentStop = 0;
+    const progressBar = document.querySelector('.progress-bar');
+    const increaseBtn = document.getElementById('increaseBtn');
+    const pngImages = document.querySelectorAll('.png-container img');
 
+    // Update PNG visibility based on current stop index
+    function updatePngVisibility(stopIndex) {
+      pngImages.forEach((img, index) => {
+        if (index <= stopIndex) {
+          img.classList.add('visible');
+        } else {
+          img.classList.remove('visible');
+        }
+      });
+    }
+
+    // Initialize first PNG visible (stop 0)
+    updatePngVisibility(currentStop);
+
+    increaseBtn.addEventListener('click', () => {
+      if (currentStop < stops.length - 1) {
+        currentStop++;
+        progressBar.style.width = stops[currentStop] + '%';
+        updatePngVisibility(currentStop);
+      }
+    });
+  </script>
 </body>
 </html>
