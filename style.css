@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8ebe4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    color: #6f4e37;
+  }
+  
+  /* Pink Progress Bar */
+  .progress-container {
+    position: relative;
+    width: 100%;
+    height: 15px;
+    background-color: #ffd1dc; /* light pink background */
+    border-radius: 10px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    background-color: #ff69b4; /* bright pink */
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* Step markers below the bar */
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .step {
+    width: 22%;
+    padding: 10px;
+    background-color: #ffd1dc;
+    color: #6f4e37;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .step.completed {
+    background-color: #ff69b4;
+    color: white;
+  }
+  
+  /* Button styling */
+  button {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #e05a9c;
+  }
+  

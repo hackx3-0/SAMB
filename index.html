@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cylindrical Progress Bar</title>
+    <style>
+        /* Progress bar container */
+        .progress-container {
+            position: relative;
+            width: 80%;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        /* Progress fill */
+        .progress-bar {
+            width: 60%; /* Adjust this to control progress */
+            height: 100%;
+            background: linear-gradient(90deg, #ff7b00, #ffcc00);
+            border-radius: 15px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        /* Stop points */
+        .stop {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #ff7b00;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Positioning the stops */
+        .stop:nth-child(1) { left: 0%; }
+        .stop:nth-child(2) { left: 33%; }
+        .stop:nth-child(3) { left: 66%; }
+        .stop:nth-child(4) { left: 100%; }
+
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="stop"></div>
+        <div class="stop"></div>
+        <div class="stop"></div>
+        <div class="stop"></div>
+    </div>
+
+</body>
+</html>

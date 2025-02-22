@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Memory Game</title>
+  <style>
+    body {
+      background-color: #fbeee6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #8b4513;
+    }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 10px;
+      margin-top: 20px;
+    }
+    .card {
+      width: 100px;
+      height: 100px;
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+    }
+    .card-front {
+      background-color: #fff;
+      border: 2px solid #8b4513;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      color: #8b4513;
+    }
+    .card-back {
+      background: url('https://via.placeholder.com/100x100?text=Coffee') center/cover;
+      transform: rotateY(180deg);
+      border: 2px solid #8b4513;
+      border-radius: 8px;
+    }
+    button {
+      background: #8b4513;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #5a2d0c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Coffee Memory Game</h1>
+  <p id="message">Click the button to preview all cards.</p>
+  <button id="previewBtn">Preview Cards</button>
+  <div class="game-board" id="gameBoard"></div>
+
+  <script>
+    // List of coffee types (you can replace emoji with images)
+    const coffeeCards = ['☕', '🍵', '🥛', '🫖', '☕', '🍵', '🥛', '🫖'];
+
+    // Shuffle array using Fisher-Yates algorithm
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    let flippedCards = [];
+    let matchedCount = 0;
+    let allowClicks = false; // Clicking enabled only after preview
+
+    const gameBoard = document.getElementById('gameBoard');
+    const messageEl = document.getElementById('message');
+    const previewBtn = document.getElementById('previewBtn');
+
+    const shuffledCards = shuffle(coffeeCards.slice()); // Shuffle a copy
+
+    // Create card elements (initially face down)
+    shuffledCards.forEach((coffee) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.coffee = coffee;
+      
+      const cardInner = document.createElement('div');
+      cardInner.classList.add('card-inner');
+      
+      const cardFront = document.createElement('div');
+      cardFront.classList.add('card-front');
+      cardFront.textContent = coffee;
+      
+      const cardBack = document.createElement('div');
+      cardBack.classList.add('card-back');
+      
+      cardInner.appendChild(cardFront);
+      cardInner.appendChild(cardBack);
+      card.appendChild(cardInner);
+      gameBoard.appendChild(card);
+      
+      // Add click event listener once preview is done
+      card.addEventListener('click', () => {
+        if (allowClicks) {
+          flipCard(card);
+        }
+      });
+    });
+
+    // Preview function: flip all cards to reveal them briefly
+    previewBtn.addEventListener('click', () => {
+      allowClicks = false; // disable clicks during preview
+      messageEl.textContent = "Memorize the positions!";
+      previewBtn.disabled = true;
+
+      const allCardInners = document.querySelectorAll('.card-inner');
+      allCardInners.forEach(cardInner => cardInner.classList.add('flipped'));
+
+      // After 5 seconds, hide the cards and start the game
+      setTimeout(() => {
+        allCardInners.forEach(cardInner => cardInner.classList.remove('flipped'));
+        messageEl.textContent = "Start matching the cards!";
+        allowClicks = true;
+      }, 5000);
+    });
+
+    // Flip card function
+    function flipCard(card) {
+      // Ignore clicks on already flipped/matched cards
+      if (card.querySelector('.card-inner').classList.contains('flipped') && flippedCards.includes(card)) return;
+      
+      card.querySelector('.card-inner').classList.add('flipped');
+      flippedCards.push(card);
+      
+      // If two cards are flipped, check for a match
+      if (flippedCards.length === 2) {
+        allowClicks = false;  // disable clicking during match check
+        setTimeout(checkForMatch, 800);
+      }
+    }
+
+    // Check if the two flipped cards match
+    function checkForMatch() {
+      const [card1, card2] = flippedCards;
+      if (card1.dataset.coffee === card2.dataset.coffee) {
+        matchedCount += 2;
+      } else {
+        card1.querySelector('.card-inner').classList.remove('flipped');
+        card2.querySelector('.card-inner').classList.remove('flipped');
+      }
+      flippedCards = [];
+      allowClicks = true;
+      
+      // Check if game is over
+      if (matchedCount === coffeeCards.length) {
+        setTimeout(() => alert('Congratulations! You matched all the coffee cards!'), 300);
+      }
+    }
+  </script>
+
+</body>
+</html>
