@@ -1,0 +1,119 @@
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #F5E6CC, #D9A96D);
+  color: rgb(75, 42, 23);
+  overflow-x: hidden;
+}
+
+/* Header Section */
+header {
+  background: linear-gradient(to right, #9C6035, #ed983d);
+  padding: 30px;
+  border-radius: 0 0 15% 15%;
+  box-shadow: 0px 0px 3px rgba(242, 242, 246, 0.9);
+}
+/* Stylish Café Title */
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 85px;
+    color: #edede9;
+    text-shadow: 
+        0 0 5px #ff9900, 
+        0 0 10px #ff6600;
+        
+}
+
+p {
+  font-size: 30px;
+  color: #e74500;
+}
+
+/* Container */
+.container {
+  padding: 50px 20px;
+}
+
+/* Tabs Container */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Individual Tabs */
+.tab {
+  width: 240px;
+  height: 320px;
+  background: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  color: rgb(85, 41, 20);
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  border-radius: 25px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tab Images */
+.tab img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Hover Effect */
+.tab:hover {
+  transform: scale(1.1);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to bottom, #D98324, #9C6035);
+  color: white;
+}
+
+/* Add Decorative Shapes */
+.tab::before {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  top: -10px;
+  left: -10px;
+  border-radius: 50%;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  bottom: -10px;
+  right: -10px;
+  border-radius: 50%;
+}
+
+/* Decorative Wave */
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: url('https://www.svgrepo.com/show/197679/wave.svg');
+  background-size: cover;
+  transform: rotate(180deg);
+}
