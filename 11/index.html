@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asian Cuisine Menu & Cart</title>
+  <link rel="stylesheet" type="text/css" href="project.css" />
+  <style>
+    /* Global styles */
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+    h1, h2, h3, h4 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    h1 {
+      color: red;
+      font-weight: 300;
+    }
+    h3 {
+      color: red;
+      font-style: italic;
+    }
+    hr {
+      border: 1px solid rgb(255, 222, 6);
+      margin: 20px auto;
+      width: 80%;
+    }
+    /* Menu section styles */
+    .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .menu-item {
+      width: 300px;
+      padding: 15px;
+      border: 1px solid #ff5733;
+      border-radius: 10px;
+      background-color: #121111e6;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .menu-item p {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .menu-item select {
+      padding: 5px 15px;
+      font-size: 14px;
+    }
+    .menu-item button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 16px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      margin-top: 10px;
+    }
+    .menu-item button:hover {
+      background-color: #d9432a;
+      transform: scale(1.1);
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    /* Cart page styles */
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+    .item-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .item-name {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    .item-price {
+      font-size: 16px;
+      margin: 0 15px;
+    }
+    .item-quantity input {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      padding: 3px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #333;
+      color: #fff;
+    }
+    .remove-btn {
+      background-color: red;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+    .summary {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .total {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .empty-cart {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    /* Navigation buttons */
+    .nav-btns {
+      text-align: center;
+      margin: 20px;
+    }
+    .nav-btns button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .nav-btns button:hover {
+      background-color: #d9432a;
+    }
+    /* Hide sections */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Buttons -->
+  <div class="nav-btns">
+    <button onclick="showSection('menu')">Menu</button>
+    <button onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</button>
+  </div>
+
+  <!-- Menu Section -->
+  <section id="menu">
+    <h1>MENU</h1>
+    <h4>Indulge in the exquisite and diverse tastes of Asian cuisine with our menu.</h4>
+    <hr />
+    <h2>Main Course</h2>
+    <hr />
+    <div class="menu-section">
+      <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfgZFGrnQZMaBUfOSWVR-zf61BdNupuD_Bew&usqp=CAU" alt="Biryani" />
+        <p>Biryani - 280rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Biryani', 280, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.eatthis.com/wp-content/uploads/sites/4/2020/01/chicken-tikka-masala.jpg?quality=82&strip=1" alt="Chicken Tikka" />
+        <p>Chicken Tikka - 265rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chicken Tikka', 265, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/015/933/115/small/chole-bhature-is-a-north-indian-food-dish-a-combination-of-chana-masala-and-bhatura-or-puri-free-photo.jpg" alt="Chole Bhature" />
+        <p>Chole Bhature - 200rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chole Bhature', 200, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.indianveggiedelight.com/wp-content/uploads/2017/10/palak-paneer-recipe-featured.jpg" alt="Palak Paneer" />
+        <p>Palak Paneer - 250rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Palak Paneer', 250, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://content.jdmagicbox.com/comp/delhi/r2/011pxx11.xx11.171127123811.v6r2/catalogue/raj-chinese-food-rohini-sector-10-delhi-take-away-joints-1fzcrn4vh9.jpg" alt="Chinese Combo" />
+        <p>Chinese Combo - 299rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chinese Combo', 299, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.cookwithkushi.com/wp-content/uploads/2022/01/best_chicken_lollipop_drums_of_chicken.jpg" alt="Chicken Lollipop" />
+        <p>Chicken Lollipop - 220rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chicken Lollipop', 220, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://img.freepik.com/fotos-premium/aloo-tokri-chaat-o-potato-basket-chat-relleno-o-katori-chat_466689-79733.jpg?w=2000" alt="Aloo Tokri Chaat" />
+        <p>Aloo Tokri Chaat - 180rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Aloo Tokri Chaat', 180, this)">Add to Cart</button>
+      </div>
+    </div>
+
+    <hr />
+    <h2>Snacks</h2>
+    <hr />
+    <div class="menu-section">
+      <!-- For brevity, reusing some items. Replace with dedicated snack items as needed. -->
+      <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfgZFGrnQZMaBUfOSWVR-zf61BdNupuD_Bew&usqp=CAU" alt="Biryani" />
+        <p>Biryani - 280rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Biryani', 280, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.eatthis.com/wp-content/uploads/sites/4/2020/01/chicken-tikka-masala.jpg?quality=82&strip=1" alt="Chicken Tikka" />
+        <p>Chicken Tikka - 265rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chicken Tikka', 265, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/015/933/115/small/chole-bhature-is-a-north-indian-food-dish-a-combination-of-chana-masala-and-bhatura-or-puri-free-photo.jpg" alt="Chole Bhature" />
+        <p>Chole Bhature - 200rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Chole Bhature', 200, this)">Add to Cart</button>
+      </div>
+    </div>
+
+    <hr />
+    <h2>Desserts</h2>
+    <hr />
+    <div class="menu-section">
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300x200.png?text=Gulab+Jamun" alt="Gulab Jamun" />
+        <p>Gulab Jamun - 150rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Gulab Jamun', 150, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300x200.png?text=Rasgulla" alt="Rasgulla" />
+        <p>Rasgulla - 130rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Rasgulla', 130, this)">Add to Cart</button>
+      </div>
+    </div>
+
+    <hr />
+    <h2>Beverages</h2>
+    <hr />
+    <div class="menu-section">
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300x200.png?text=Green+Tea" alt="Green Tea" />
+        <p>Green Tea - 100rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Green Tea', 100, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300x200.png?text=Mango+Lassi" alt="Mango Lassi" />
+        <p>Mango Lassi - 120rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Mango Lassi', 120, this)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Section -->
+  <section id="cart" class="hidden">
+    <h1>Your Cart</h1>
+    <div class="cart-container" id="cartContainer">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="summary" id="priceSummary">
+      <!-- Price breakdown will be displayed here -->
+    </div>
+    <div class="total" id="totalAmount">
+      <!-- Grand total will be displayed here -->
+    </div>
+    <div class="empty-cart" id="emptyCartMessage" style="display:none;">
+      Your cart is empty.
+    </div>
+  </section>
+
+  <script>
+    // Array to store cart items.
+    let cartItems = [];
+
+    // Function to add items to the cart.
+    function addToCart(name, price, btnElement) {
+      // Get the selected quantity from the menu item.
+      const quantitySelect = btnElement.previousElementSibling;
+      const quantity = parseInt(quantitySelect.value);
+      // Check if the item already exists.
+      const existingItemIndex = cartItems.findIndex(item => item.name === name);
+      if (existingItemIndex !== -1) {
+        cartItems[existingItemIndex].quantity += quantity;
+      } else {
+        const imgSrc = btnElement.parentElement.querySelector("img").src;
+        cartItems.push({ name, price, quantity, image: imgSrc });
+      }
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    // Update the cart count in the navigation.
+    function updateCartCount() {
+      const count = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("cartCount").innerText = count;
+    }
+
+    // Display cart items and update price breakdown.
+    function displayCart() {
+      const cartContainer = document.getElementById("cartContainer");
+      const priceSummary = document.getElementById("priceSummary");
+      const totalAmountDiv = document.getElementById("totalAmount");
+      const emptyCartMessage = document.getElementById("emptyCartMessage");
+
+      cartContainer.innerHTML = "";
+      priceSummary.innerHTML = "";
+
+      if (cartItems.length === 0) {
+        emptyCartMessage.style.display = "block";
+        totalAmountDiv.innerHTML = "";
+        return;
+      } else {
+        emptyCartMessage.style.display = "none";
+      }
+
+      let baseTotal = 0;
+      cartItems.forEach((item, index) => {
+        baseTotal += item.price * item.quantity;
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+          <div class="item-details">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="item-name">${item.name}</div>
+          </div>
+          <div class="item-quantity">
+            Qty: <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" />
+          </div>
+          <div class="item-price">Rs ${item.price * item.quantity}</div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(itemDiv);
+      });
+
+      // Calculate taxes and final total.
+      const cgst = baseTotal * 0.09;
+      const sgst = baseTotal * 0.09;
+      const finalTotal = baseTotal + cgst + sgst;
+
+      priceSummary.innerHTML = `
+        Base Total: Rs ${baseTotal.toFixed(2)}<br />
+        CGST (9%): Rs ${cgst.toFixed(2)}<br />
+        SGST (9%): Rs ${sgst.toFixed(2)}
+      `;
+      totalAmountDiv.innerHTML = `Grand Total: Rs ${finalTotal.toFixed(2)}`;
+    }
+
+    // Update the quantity of an item.
+    function updateQuantity(index, newQuantity) {
+      newQuantity = parseInt(newQuantity);
+      if (newQuantity < 1) return;
+      cartItems[index].quantity = newQuantity;
+      updateCartCount();
+      displayCart();
+    }
+
+    // Remove an item from the cart.
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      updateCartCount();
+      displayCart();
+    }
+
+    // Show/hide sections.
+    function showSection(sectionId) {
+      document.getElementById("menu").classList.add("hidden");
+      document.getElementById("cart").classList.add("hidden");
+      document.getElementById(sectionId).classList.remove("hidden");
+
+      if (sectionId === "cart") {
+        displayCart();
+      }
+    }
+  </script>
+</body>
+</html>
