@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Quiz ☕</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fbeee6;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #8b4513;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background: #8b4513;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #5a2d0c;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #d2691e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Find Your Perfect Coffee! ☕</h1>
+
+        <form id="coffeeQuiz">
+            <label>1. How strong do you like your coffee?</label>
+            <select id="strength">
+                <option value="mild">Mild</option>
+                <option value="medium">Medium</option>
+                <option value="strong">Strong</option>
+            </select>
+
+            <label>2. Do you like milk in your coffee?</label>
+            <select id="milk">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>3. Do you prefer it hot or cold?</label>
+            <select id="temp">
+                <option value="hot">Hot</option>
+                <option value="cold">Cold</option>
+            </select>
+
+            <button type="button" onclick="getCoffeeResult()">Find My Coffee</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function getCoffeeResult() {
+            let strength = document.getElementById("strength").value;
+            let milk = document.getElementById("milk").value;
+            let temp = document.getElementById("temp").value;
+            let resultText = "";
+
+            if (temp === "cold" && milk === "yes") {
+                resultText = "You should try an Iced Latte! ❄️☕";
+            } else if (temp === "cold" && milk === "no") {
+                resultText = "An Iced Americano is perfect for you! ❄️🥤";
+            } else if (strength === "strong" && milk === "no") {
+                resultText = "Go for an Espresso! ⚡☕";
+            } else if (strength === "strong" && milk === "yes") {
+                resultText = "A Cappuccino would be great! 🍵☕";
+            } else if (strength === "medium" && milk === "yes") {
+                resultText = "A classic Café Latte is for you! 🥛☕";
+            } else {
+                resultText = "Try a smooth and mild Americano! ☕";
+            }
+
+            document.getElementById("result").innerHTML = `<strong>${resultText}</strong>`;
+        }
+    </script>
+
+</body>
+</html>
