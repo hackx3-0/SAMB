@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10-Question Guess the Dish Quiz</title>
+  <style>
+    body {
+      background-color: #fff8e1;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #bf360c;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #ffe0b2;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .clues {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .clues p {
+      margin: 8px 0;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px 0;
+      border: 2px solid #bf360c;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #bf360c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background-color: #a52a05;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    #result img {
+      display: block;
+      margin: 10px auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Dish Quiz</h1>
+  <div class="quiz-container">
+    <div id="questionArea">
+      <!-- Question and clues will be loaded here -->
+    </div>
+    <input type="text" id="guessInput" placeholder="Enter your guess here">
+    <br>
+    <button id="submitButton">Submit Guess</button>
+    <div id="result"></div>
+    <button id="nextButton" style="display:none;">Next Question</button>
+  </div>
+
+  <script>
+    // Array of 10 questions with 3 clues, answer, and an image URL
+    const questions = [
+      {
+        clues: [
+          "I am a traditional Italian dish.",
+          "I consist of layers of pasta, meat, cheese, and tomato sauce.",
+          "My name sounds similar to a word that means 'to layer'."
+        ],
+        answer: "Lasagna",
+        img: "https://via.placeholder.com/300?text=Lasagna"
+      },
+      {
+        clues: [
+          "I am a popular Japanese dish.",
+          "I am served with raw fish, rice, and seaweed.",
+          "My name means 'vinegared rice'."
+        ],
+        answer: "Sushi",
+        img: "https://via.placeholder.com/300?text=Sushi"
+      },
+      {
+        clues: [
+          "I am a hearty American breakfast.",
+          "I usually include eggs, bacon, and toast.",
+          "I am often served with a side of potatoes."
+        ],
+        answer: "Breakfast",
+        img: "https://via.placeholder.com/300?text=Breakfast"
+      },
+      {
+        clues: [
+          "I am a famous Mexican dish.",
+          "I consist of a tortilla folded or rolled around a filling.",
+          "My name is also used to describe something that's wrapped."
+        ],
+        answer: "Taco",
+        img: "https://via.placeholder.com/300?text=Taco"
+      },
+      {
+        clues: [
+          "I am an iconic French pastry.",
+          "I have a flaky, buttery texture and come in many shapes.",
+          "My name means 'small cake' in French."
+        ],
+        answer: "Croissant",
+        img: "https://via.placeholder.com/300?text=Croissant"
+      },
+      {
+        clues: [
+          "I am a spicy Indian dish.",
+          "I am a creamy tomato-based curry typically made with chicken.",
+          "My name means 'butter' in English."
+        ],
+        answer: "Butter Chicken",
+        img: "https://via.placeholder.com/300?text=Butter+Chicken"
+      },
+      {
+        clues: [
+          "I am a traditional Spanish rice dish.",
+          "I include saffron, seafood, and sometimes chicken.",
+          "My name is also the title of a famous film."
+        ],
+        answer: "Paella",
+        img: "https://via.placeholder.com/300?text=Paella"
+      },
+      {
+        clues: [
+          "I am a classic British dish.",
+          "I involve meat baked in a pastry crust.",
+          "My name is shared with a famous detective from literature."
+        ],
+        answer: "Pie",
+        img: "https://via.placeholder.com/300?text=Pie"
+      },
+      {
+        clues: [
+          "I am a refreshing Middle Eastern dish.",
+          "I consist of finely chopped vegetables and herbs mixed with bulgur wheat.",
+          "My name means 'to mix' in Arabic."
+        ],
+        answer: "Tabbouleh",
+        img: "https://via.placeholder.com/300?text=Tabbouleh"
+      },
+      {
+        clues: [
+          "I am a popular American dessert.",
+          "I have a buttery crust and are filled with fruits or sweet fillings.",
+          "My name is synonymous with a 'piece of pie'."
+        ],
+        answer: "Pie",
+        img: "https://via.placeholder.com/300?text=Pie"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    const questionArea = document.getElementById("questionArea");
+    const guessInput = document.getElementById("guessInput");
+    const resultEl = document.getElementById("result");
+    const submitButton = document.getElementById("submitButton");
+    const nextButton = document.getElementById("nextButton");
+
+    function loadQuestion() {
+      // Clear previous result and input
+      resultEl.textContent = "";
+      guessInput.value = "";
+      // Hide next button until answer is submitted
+      nextButton.style.display = "none";
+
+      if (currentQuestionIndex < questions.length) {
+        const q = questions[currentQuestionIndex];
+        let html = `<h2>Question ${currentQuestionIndex + 1}</h2>`;
+        html += `<div class="clues">`;
+        q.clues.forEach((clue, index) => {
+          html += `<p><strong>Clue ${index + 1}:</strong> ${clue}</p>`;
+        });
+        html += `</div>`;
+        questionArea.innerHTML = html;
+      } else {
+        questionArea.innerHTML = "<h2>Quiz Completed!</h2><p>Great job playing!</p>";
+        submitButton.style.display = "none";
+        guessInput.style.display = "none";
+        nextButton.style.display = "none";
+      }
+    }
+
+    function checkAnswer() {
+      const userGuess = guessInput.value.trim();
+      const currentQuestion = questions[currentQuestionIndex];
+      const correctAnswer = currentQuestion.answer;
+      
+      if (userGuess === "") {
+        resultEl.textContent = "Please enter a guess!";
+        return;
+      }
+
+      // Disable the submit button to prevent multiple submissions
+      submitButton.disabled = true;
+
+      if (userGuess.toLowerCase() === correctAnswer.toLowerCase()) {
+        resultEl.innerHTML = `<span style="color: green;">🎉 Correct! ${correctAnswer} is right!</span><br>
+                              <img src="${currentQuestion.img}" alt="${correctAnswer} image">`;
+      } else {
+        resultEl.textContent = "";
+        alert("❌ Oops, that's not it. The correct answer is: " + correctAnswer + "!");
+      }
+
+      // Enable next button and re-enable submit for future questions
+      nextButton.style.display = "inline-block";
+      submitButton.disabled = false;
+    }
+
+    // Event listeners
+    submitButton.addEventListener("click", checkAnswer);
+    nextButton.addEventListener("click", function() {
+      currentQuestionIndex++;
+      loadQuestion();
+    });
+
+    // Start the quiz
+    loadQuestion();
+  </script>
+</body>
+</html>
