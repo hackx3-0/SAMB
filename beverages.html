@@ -1,148 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asian Cuisine Menu</title>
+  <title>Asian Cuisine Menu & Cart</title>
   <link rel="stylesheet" type="text/css" href="project.css">
+  <style>
+    /* Global styles */
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      position: relative;
+    }
+    h1, h2, h3, h4 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    h1 {
+      color: red;
+      font-weight: 300;
+    }
+    h3 {
+      color: red;
+      font-style: italic;
+    }
+    hr {
+      border: 1px solid rgb(255, 222, 6);
+      margin: 20px auto;
+      width: 80%;
+    }
+    /* Menu section styles */
+    .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .menu-item {
+      width: 300px;
+      padding: 15px;
+      border: 1px solid #ff5733;
+      border-radius: 10px;
+      background-color: #121111e6;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .menu-item p {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .menu-item select {
+      padding: 5px 15px;
+      font-size: 14px;
+    }
+    .menu-item button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 16px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      margin-top: 10px;
+    }
+    .menu-item button:hover {
+      background-color: #d9432a;
+      transform: scale(1.1);
+      box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+    }
+    /* Cart page styles */
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #ff5733;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+    .item-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .item-name {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    .item-price {
+      font-size: 16px;
+      margin: 0 15px;
+    }
+    .item-quantity input {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      padding: 3px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #ff5733;
+      color: #fff;
+    }
+    .remove-btn {
+      background-color: red;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+    /* Price summary box styles */
+    .price-box {
+      background-color: #ff5733;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .total {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .empty-cart {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    /* Navigation buttons */
+    .nav-btns {
+      text-align: center;
+      margin: 20px;
+    }
+    .nav-btns button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .nav-btns button:hover {
+      background-color: #d9432a;
+    }
+    /* Hide sections */
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <Style> 
-  body {
-    background: url('Payment_bg.jpg') no-repeat center center fixed; /* Set background image */
-    background-size: cover; /* Cover full page */
-    font-family: Arial, sans-serif;
-    position: relative;
-  }
-  
-  /* Add a pseudo-element to create a blur effect */
-  body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit; /* Use the same background */
-    filter: blur(8px); /* Adjust the blur level */
-    z-index: -1; /* Place it behind the content */
-  }
-  
-
-p { color: white; }
-
-h3 { color: red; font-style: italic; }
-
-h1 { color: red; font-weight: 300; text-align: center; }
-
-h2 { color: white; text-align: center; }
-
-hr { border-color: rgb(255, 222, 6); }
-
-h4 { color: white; text-align: center; }
-
-ul { color: white; }
-
-li { color: white; }
-
-h1, h4 {
-    margin-bottom: 20px;
-  }/* Container for menu items */
-        .menu-section {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center; /* Centers items horizontally */
-          gap: 20px; /* Adds space between items */
-          padding: 20px;
-        }
-      
-      menu-section {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 20px;
-        }
-        
-       /* Individual menu item */
-      .menu-item {
-          width: 300px; /* Ensures a uniform width */
-          padding: 15px;
-          border: 1px solid #ff5733;
-          border-radius: 10px;
-          background-color: #121111e6;
-          text-align: center;
-          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        
-        /* Standardize image size */
-        .menu-item img {
-          width: 100%;  /* Makes image responsive within its container */
-          height: 200px;
-          object-fit: cover; /* Ensures images fit uniformly */
-          border-radius: 5px;
-          
-        }
-        
-        /* Price and item description */
-        .menu-item p {
-          font-size: 25px;
-          font-weight: bold;
-          margin: 10px 0;
-        }
-        
-        /* Align dropdown and button */
-        .menu-item .controls {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          padding: 15px;
-        }
-        
-        .menu-item select {
-          padding: 5px 15px;
-          font-size: 14px;
-        }
-        
-        /* Add to Cart button */
-        .menu-item button {
-          background-color: #ff5733;
-          color: white;
-          border: none;
-          padding: 14px 20px;
-          cursor: pointer;
-          font-size: 14px;
-          border-radius: 5px;
-        }
-        
-        .menu-item button:hover {
-          background-color: #d9432a;
-        }
-      
-        /* Add to Cart button */
-      .menu-item button {
-          background-color: #ff5733;
-          color: white;
-          border: none;
-          padding: 16px 14x;
-          cursor: pointer;
-          font-size: 14px;
-          border-radius: 5px;
-          transition: all 0.3s ease-in-out; /* Smooth transition */
-        }
-        
-        /* Hover effect */
-        .menu-item button:hover {
-          background-color: #d9432a; /* Darker red */
-          transform: scale(1.1); /* Slightly enlarges the button */
-          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
-        }</Style>
-        <hr>
+  <!-- Navigation Buttons -->
+  <div class="nav-btns">
+    <button onclick="showSection('menu')">Menu</button>
+    <button onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</button>
+    <button onclick="addAllItems()">Add All Items</button>
+  </div>
+<hr>
+<section id="menu">      
  <h2>Beverages</h2>
  <hr>
+
  <div class="menu-section">
    <div class="menu-item">
      <img src="https://angelinos.com/cdn/shop/articles/How_Much_Milk_Coffee_in_a_Cappuccino.jpg?v=1701189122&width=320" alt="Biryani" width="300" height="200">
@@ -152,8 +210,8 @@ h1, h4 {
        <option value="2">2</option>
        <option value="3">3</option>
        <option value="4">4</option>
-     </select><br>
-     <button class="add-to-cart">Add to Cart</button>
+     </select>
+     <button onclick="addToCart('Cappuccino', 100, this)">Add to Cart</button>
    </div>
    <div class="menu-item">
        <img src="https://sagarkitchen.com/wp-content/uploads/2023/06/lychee-drink-litchi-juice-recipe-sagar-kitchen-480x270.webp" alt="Chicken Tikka" width="300" height="200">
@@ -163,8 +221,8 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('lychee Juice', 150, this)">Add to Cart</button>
      </div>
  
      <div class="menu-item">
@@ -175,8 +233,8 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('Blue Lagoon', 200, this)">Add to Cart</button>
      </div>
  
      <div class="menu-item">
@@ -187,8 +245,9 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('Milkshake', 170, this)">Add to Cart</button>
+       
      </div>
  
      <div class="menu-item">
@@ -199,8 +258,8 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('Tea', 20, this)">Add to Cart</button>
      </div>
  
      <div class="menu-item">
@@ -211,8 +270,8 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('Soda based drinks', 120, this)">Add to Cart</button>
      </div>
  
      <div class="menu-item">
@@ -223,10 +282,182 @@ h1, h4 {
          <option value="2">2</option>
          <option value="3">3</option>
          <option value="4">4</option>
-       </select><br>
-       <button class="add-to-cart">Add to Cart</button>
+       </select>
+       <button onclick="addToCart('Falooda', 180, this)">Add to Cart</button>
+
      </div>
      </div>
- <hr>
- </body>
- </html>
+     </section>
+     <!-- Cart Section -->
+  <section id="cart" class="hidden">
+    <h1>Your Cart</h1>
+    <div class="cart-container" id="cartContainer">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <!-- Interactive Price Box -->
+    <div class="price-box" id="priceSummary">
+      <!-- Price breakdown will be displayed here -->
+    </div>
+    <div class="total" id="totalAmount">
+      <!-- Grand total will be displayed here -->
+    </div>
+    <div class="empty-cart" id="emptyCartMessage" style="display:none;">
+      Your cart is empty.
+    </div>
+  </section>
+
+  <script>
+    // Array to store cart items.
+    let cartItems = [];
+
+    // Function to add a single item to the cart.
+    function addToCart(name, price, btnElement) {
+      const quantitySelect = btnElement.previousElementSibling;
+      const quantity = parseInt(quantitySelect.value);
+      const existingItemIndex = cartItems.findIndex(item => item.name === name);
+      if (existingItemIndex !== -1) {
+        cartItems[existingItemIndex].quantity += quantity;
+      } else {
+        const imgSrc = btnElement.parentElement.querySelector("img").src;
+        cartItems.push({ name, price, quantity, image: imgSrc });
+      }
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    // Function to add all items (from a predefined list) to the cart.
+    function addAllItems() {
+      const allItems = [
+        { name: 'Cappuccino', price: 100, image: 'https://angelinos.com/cdn/shop/articles/How_Much_Milk_Coffee_in_a_Cappuccino.jpg?v=1701189122&width=320' },
+        { name: 'lychee Juice', price: 150, image: 'https://sagarkitchen.com/wp-content/uploads/2023/06/lychee-drink-litchi-juice-recipe-sagar-kitchen-480x270.webp' },
+        { name: 'Blue Lagoon', price: 200, image: 'https://monin.in/cdn/shop/products/Blue_20Lagoon.png?v=1681306671' },
+        { name: 'Milkshake', price: 170, image: 'https://www.dessertfortwo.com/wp-content/uploads/2022/08/How-to-Make-a-Milkshake-11-720x720.jpg' },
+        { name: 'Tea', price: 20, image: 'https://www.teaforturmeric.com/wp-content/uploads/2021/11/Masala-Chai-Tea-Recipe-Card.jpg' },
+        { name: 'Soda based drinks', price: 120, image: 'https://nutrition.org/wp-content/uploads/2019/06/beverages-carbonated-drink-cold-drink-1571849.jpg' },
+        { name: 'Falooda', price: 180, image: 'https://images.squarespace-cdn.com/content/v1/5ea3b22556f3d073f3d9cae4/7fe330f7-5621-4dd3-8816-aa8fedc22765/Screenshot+2024-05-31+at+11.38.24%E2%80%AFAM.png' }
+      ];
+      
+      allItems.forEach(item => {
+        const existingItemIndex = cartItems.findIndex(cartItem => cartItem.name === item.name);
+        if (existingItemIndex !== -1) {
+          cartItems[existingItemIndex].quantity += 1;
+        } else {
+          cartItems.push({ name: item.name, price: item.price, quantity: 1, image: item.image });
+        }
+      });
+      updateCartCount();
+      displayCart();
+      alert("All items have been added to your cart!");
+    }
+
+    // Update the cart count.
+    function updateCartCount() {
+      const count = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("cartCount").innerText = count;
+    }
+
+    // Calculate flat discount based on base total.
+    function calculateFlatDiscount(total) {
+      if (total >= 150 && total <= 299) return 18;
+      else if (total >= 300 && total <= 499) return 45;
+      else if (total >= 500 && total <= 799) return 90;
+      else if (total >= 800 && total <= 1199) return 135;
+      else if (total >= 1200 && total <= 1499) return 180;
+      else if (total >= 1500 && total <= 1999) return 270;
+      else if (total >= 2000 && total <= 2999) return 360;
+      else if (total >= 3000 && total <= 4999) return 450;
+      else if (total >= 5000) return 900;
+      else return 0;
+    }
+
+    // Display cart items and update price summary.
+    function displayCart() {
+      const cartContainer = document.getElementById("cartContainer");
+      const priceSummary = document.getElementById("priceSummary");
+      const totalAmountDiv = document.getElementById("totalAmount");
+      const emptyCartMessage = document.getElementById("emptyCartMessage");
+
+      cartContainer.innerHTML = "";
+      priceSummary.innerHTML = "";
+
+      if (cartItems.length === 0) {
+        emptyCartMessage.style.display = "block";
+        totalAmountDiv.innerHTML = "";
+        return;
+      } else {
+        emptyCartMessage.style.display = "none";
+      }
+
+      let baseTotal = 0;
+      cartItems.forEach((item, index) => {
+        baseTotal += item.price * item.quantity;
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+          <div class="item-details">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="item-name">${item.name}</div>
+          </div>
+          <div class="item-quantity">
+            Qty: <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" />
+          </div>
+          <div class="item-price">Rs ${item.price * item.quantity}</div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(itemDiv);
+      });
+
+      // Total before discount.
+      let totalBeforeDiscount = baseTotal;
+
+      // Calculate flat discount.
+      const flatDiscount = calculateFlatDiscount(totalBeforeDiscount);
+
+      // Final payable amount.
+      const finalTotal = totalBeforeDiscount - flatDiscount;
+
+      // Calculate discount percentage.
+      let discountPercentage = ((flatDiscount / totalBeforeDiscount) * 100).toFixed(1);
+      if (totalBeforeDiscount >= 800 && totalBeforeDiscount <= 1199) {
+        discountPercentage = "13.5";
+      }
+
+      // Reward points: remaining amount after discount.
+      const rewardPoints = flatDiscount;
+
+      priceSummary.innerHTML = `
+        Base Total: Rs ${baseTotal.toFixed(2)}<br />
+        Flat Discount: ${discountPercentage}% off <br />
+        Reward Points Earned: ${rewardPoints} points
+      `;
+      totalAmountDiv.innerHTML = `Grand Total: Rs ${finalTotal.toFixed(2)}`;
+    }
+
+    // Update the quantity of an item.
+    function updateQuantity(index, newQuantity) {
+      newQuantity = parseInt(newQuantity);
+      if (newQuantity < 1) return;
+      cartItems[index].quantity = newQuantity;
+      updateCartCount();
+      displayCart();
+    }
+
+    // Remove an item from the cart.
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      updateCartCount();
+      displayCart();
+    }
+
+    // Show/hide sections.
+    function showSection(sectionId) {
+      document.getElementById("menu").classList.add("hidden");
+      document.getElementById("cart").classList.add("hidden");
+      document.getElementById(sectionId).classList.remove("hidden");
+      if (sectionId === "cart") {
+        displayCart();
+      }
+    }
+  </script>
+</body>
+</html>

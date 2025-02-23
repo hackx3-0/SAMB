@@ -1,232 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asian Cuisine Menu</title>
-  <link rel="stylesheet" type="text/css" href="project.css">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      position: relative;
+      background: #000;
+      color: white;
+    }
+    /* Optional Background Blur (if needed) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1500') no-repeat center center/cover;
+      filter: blur(8px);
+      z-index: -1;
+    }
+    p { color: white; }
+    h3 { color: red; font-style: italic; }
+    h1 { color: red; font-weight: 300; text-align: center; }
+    h2 {
+      color: white;
+      text-align: center;
+      font-size: 35px;
+      background: rgba(222, 91, 15, 0.6);
+      padding: 10px 30px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    hr { border-color: rgb(255, 222, 6); }
+    h4 { color: white; text-align: center; }
+    ul, li { color: white; }
+    h1, h4 { margin-bottom: 20px; }
+
+    /* Navigation Buttons */
+    .nav-btns {
+      text-align: center;
+      margin: 20px;
+    }
+    .nav-btns button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: 0 10px;
+      transition: background 0.3s;
+    }
+    .nav-btns button:hover {
+      background-color: #d9432a;
+    }
+
+    /* Menu Section */
+    #menu {
+      padding: 20px;
+    }
+    .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .menu-item {
+      width: 300px;
+      padding: 15px;
+      border: 1px solid #ff5733;
+      border-radius: 10px;
+      background-color: #121111e6;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .menu-item p {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .menu-item select {
+      padding: 5px 15px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .menu-item button {
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+    .menu-item button:hover {
+      background-color: #d9432a;
+      transform: scale(1.05);
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Cart Section */
+    #cart {
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #ff5733;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+    .item-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .item-name {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    .item-price {
+      font-size: 16px;
+      margin: 0 15px;
+    }
+    .item-quantity input {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      padding: 3px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #333;
+      color: #fff;
+    }
+    .remove-btn {
+      background-color: red;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+    .price-box {
+      background-color: #ff5733;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .total {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .empty-cart {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-    <Style> 
-    body {
-    background: url('Payment_bg.jpg') no-repeat center center fixed; /* Set background image */
-    background-size: cover; /* Cover full page */
-    font-family: Arial, sans-serif;
-    position: relative;
-  }
-  
-  /* Add a pseudo-element to create a blur effect */
-  body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit; /* Use the same background */
-    filter: blur(8px); /* Adjust the blur level */
-    z-index: -1; /* Place it behind the content */
-  }
-  
-
-p { color: white; }
-
-h3 { color: red; font-style: italic; }
-
-h1 { color: red; font-weight: 300; text-align: center; }
-
-h2 { color: white; text-align: center; }
-
-hr { border-color: rgb(255, 222, 6); }
-
-h4 { color: white; text-align: center; }
-
-ul { color: white; }
-
-li { color: white; }
-
-h1, h4 {
-    margin-bottom: 20px;
-  }/* Container for menu items */
-        .menu-section {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center; /* Centers items horizontally */
-          gap: 20px; /* Adds space between items */
-          padding: 20px;
-        }
-      
-      menu-section {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 20px;
-        }
-        
-       /* Individual menu item */
-      .menu-item {
-          width: 300px; /* Ensures a uniform width */
-          padding: 15px;
-          border: 1px solid #ff5733;
-          border-radius: 10px;
-          background-color: #121111e6;
-          text-align: center;
-          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        
-        /* Standardize image size */
-        .menu-item img {
-          width: 100%;  /* Makes image responsive within its container */
-          height: 200px;
-          object-fit: cover; /* Ensures images fit uniformly */
-          border-radius: 5px;
-          
-        }
-        
-        /* Price and item description */
-        .menu-item p {
-          font-size: 25px;
-          font-weight: bold;
-          margin: 10px 0;
-        }
-        
-        /* Align dropdown and button */
-        .menu-item .controls {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          padding: 15px;
-        }
-        
-        .menu-item select {
-          padding: 5px 15px;
-          font-size: 14px;
-        }
-        
-        /* Add to Cart button */
-        .menu-item button {
-          background-color: #ff5733;
-          color: white;
-          border: none;
-          padding: 14px 20px;
-          cursor: pointer;
-          font-size: 14px;
-          border-radius: 5px;
-        }
-        
-        .menu-item button:hover {
-          background-color: #d9432a;
-        }
-      
-        /* Add to Cart button */
-      .menu-item button {
-          background-color: #ff5733;
-          color: white;
-          border: none;
-          padding: 16px 14x;
-          cursor: pointer;
-          font-size: 14px;
-          border-radius: 5px;
-          transition: all 0.3s ease-in-out; /* Smooth transition */
-        }
-        
-        /* Hover effect */
-        .menu-item button:hover {
-          background-color: #d9432a; /* Darker red */
-          transform: scale(1.1); /* Slightly enlarges the button */
-          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
-        }</Style>
-<hr>
-<h2>Desserts</h2>
-<hr>
-<div class="menu-section">
-  <div class="menu-item">
-    <img src="https://www.melskitchencafe.com/wp-content/uploads/2023/01/updated-lava-cakes7.jpg" alt="Biryani" width="300" height="200">
-    <p>Choco Lava Cake - 150rs</p>
-    <select class="quantity">
-      <option value="1">1</option>
-      <option value="2">2</option>    
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select><br>
-    <button class="add-to-cart">Add to Cart</button>
+  <!-- Navigation Buttons -->
+  <div class="nav-btns">
+    <button onclick="showSection('menu')">Menu</button>
+    <button onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</button>
+    <button onclick="addAllItems()">Add All Items</button>
   </div>
-  <div class="menu-item">
-      <img src="https://www.chefadora.com/_next/image?url=https%3A%2F%2Fchefadora.b-cdn.net%2F003f0f0351967a7cb6212a8d9bfaf889_f956154e73.jpg&w=3840&q=75" alt="Chicken Tikka" width="300" height="200">
-      <p>Gulab Jamun - 60rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
 
-    <div class="menu-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc8PhjeuJaxebmCBmh5mZrO4vEYOz9wGBweA&s" alt="Chole Bhature" width="300" height="200">
-      <p>Rasberry Cheesecake - 200rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://www.chitalebandhu.in/cdn/shop/files/Rasgulla-Image-_3_1024x1024.jpg?v=1697398551" alt="Palak Paneer" width="300" height="200">
-      <p>Rasgulla - 60rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdagk7FRqPHjFvPNWvXrbiSc_yv8eRR4n81w&s" alt="Chinese Combo" width="300" height="200">
-      <p>Donut - 120rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVHj4FpqzJYMuHyR5_58Wxcx0Rj6KY1rLAOw&s" alt="Chicken Lollipop" width="300" height="200">
-      <p>Dalgona Candy - 100rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://www.allrecipes.com/thmb/4c7QJ1O31LVKHh-E18yRUuu-QfU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/233920-Tender-Easy-Buttermilk-Waffles-DDMFS-3x4-0129-529693c02fb84b96a9903e982f6980bd.jpg" alt="Aloo Tokri Chaat" width="300" height="200">
-      <p>Waffle - 180rs</p>
-      <select class="quantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select><br>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-    </div>
+  <!-- Menu Section -->
+  <section id="menu">
     <hr>
-    </body>
-    </html>
+    <h2>Desserts</h2>
+    <div class="menu-section">
+      <div class="menu-item">
+        <img src="https://www.melskitchencafe.com/wp-content/uploads/2023/01/updated-lava-cakes7.jpg" alt="Choco Lava Cake">
+        <p>Choco Lava Cake - 150rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>    
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Choco Lava Cake', 150, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.chefadora.com/_next/image?url=https%3A%2F%2Fchefadora.b-cdn.net%2F003f0f0351967a7cb6212a8d9bfaf889_f956154e73.jpg&w=3840&q=75" alt="Gulab Jamun">
+        <p>Gulab Jamun - 60rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Gulab Jamun', 60, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc8PhjeuJaxebmCBmh5mZrO4vEYOz9wGBweA&s" alt="Raspberry Cheesecake">
+        <p>Raspberry Cheesecake - 200rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Raspberry Cheesecake', 200, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.chitalebandhu.in/cdn/shop/files/Rasgulla-Image-_3_1024x1024.jpg?v=1697398551" alt="Rasgulla">
+        <p>Rasgulla - 60rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Rasgulla', 60, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdagk7FRqPHjFvPNWvXrbiSc_yv8eRR4n81w&s" alt="Donut">
+        <p>Donut - 120rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Donut', 120, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVHj4FpqzJYMuHyR5_58Wxcx0Rj6KY1rLAOw&s" alt="Dalgona Candy">
+        <p>Dalgona Candy - 100rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Dalgona Candy', 100, this)">Add to Cart</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://www.allrecipes.com/thmb/4c7QJ1O31LVKHh-E18yRUuu-QfU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/233920-Tender-Easy-Buttermilk-Waffles-DDMFS-3x4-0129-529693c02fb84b96a9903e982f6980bd.jpg" alt="Waffle">
+        <p>Waffle - 180rs</p>
+        <select class="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <button onclick="addToCart('Waffle', 180, this)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Section -->
+  <section id="cart" class="hidden">
+    <h1>Your Cart</h1>
+    <div class="cart-container" id="cartContainer">
+      <!-- Cart items will be added here dynamically -->
+    </div>
+    <div class="price-box" id="priceSummary">
+      <!-- Price summary details will appear here -->
+    </div>
+    <div class="total" id="totalAmount">
+      <!-- Grand total will appear here -->
+    </div>
+    <div class="empty-cart" id="emptyCartMessage" style="display:none;">
+      Your cart is empty.
+    </div>
+  </section>
+
+  <script>
+    // Array to store cart items
+    let cartItems = [];
+
+    // Add item to the cart
+    function addToCart(name, price, btnElement) {
+      const quantitySelect = btnElement.previousElementSibling;
+      const quantity = parseInt(quantitySelect.value);
+      // Check if item exists already
+      const existingIndex = cartItems.findIndex(item => item.name === name);
+      if (existingIndex !== -1) {
+        cartItems[existingIndex].quantity += quantity;
+      } else {
+        const imgSrc = btnElement.parentElement.querySelector("img").src;
+        cartItems.push({ name, price, quantity, image: imgSrc });
+      }
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    // Add all items from a predefined list to the cart
+    function addAllItems() {
+      const allItems = [
+        { name: 'Choco Lava Cake', price: 150, image: 'https://www.melskitchencafe.com/wp-content/uploads/2023/01/updated-lava-cakes7.jpg' },
+        { name: 'Gulab Jamun', price: 60, image: 'https://www.chefadora.com/_next/image?url=https%3A%2F%2Fchefadora.b-cdn.net%2F003f0f0351967a7cb6212a8d9bfaf889_f956154e73.jpg&w=3840&q=75' },
+        { name: 'Raspberry Cheesecake', price: 200, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc8PhjeuJaxebmCBmh5mZrO4vEYOz9wGBweA&s' },
+        { name: 'Rasgulla', price: 60, image: 'https://www.chitalebandhu.in/cdn/shop/files/Rasgulla-Image-_3_1024x1024.jpg?v=1697398551' },
+        { name: 'Donut', price: 120, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdagk7FRqPHjFvPNWvXrbiSc_yv8eRR4n81w&s' },
+        { name: 'Dalgona Candy', price: 100, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVHj4FpqzJYMuHyR5_58Wxcx0Rj6KY1rLAOw&s' },
+        { name: 'Waffle', price: 180, image: 'https://www.allrecipes.com/thmb/4c7QJ1O31LVKHh-E18yRUuu-QfU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/233920-Tender-Easy-Buttermilk-Waffles-DDMFS-3x4-0129-529693c02fb84b96a9903e982f6980bd.jpg' }
+      ];
+      
+      allItems.forEach(item => {
+        const index = cartItems.findIndex(cartItem => cartItem.name === item.name);
+        if (index !== -1) {
+          cartItems[index].quantity += 1;
+        } else {
+          cartItems.push({ name: item.name, price: item.price, quantity: 1, image: item.image });
+        }
+      });
+      updateCartCount();
+      displayCart();
+      alert("All items have been added to your cart!");
+    }
+
+    // Update the cart item count
+    function updateCartCount() {
+      const count = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("cartCount").innerText = count;
+    }
+
+    // Display the cart items and price summary
+    function displayCart() {
+      const cartContainer = document.getElementById("cartContainer");
+      const priceSummary = document.getElementById("priceSummary");
+      const totalAmountDiv = document.getElementById("totalAmount");
+      const emptyCartMessage = document.getElementById("emptyCartMessage");
+
+      cartContainer.innerHTML = "";
+      priceSummary.innerHTML = "";
+      totalAmountDiv.innerHTML = "";
+
+      if (cartItems.length === 0) {
+        emptyCartMessage.style.display = "block";
+        return;
+      } else {
+        emptyCartMessage.style.display = "none";
+      }
+
+      let baseTotal = 0;
+      cartItems.forEach((item, index) => {
+        baseTotal += item.price * item.quantity;
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+        itemDiv.innerHTML = `
+          <div class="item-details">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="item-name">${item.name}</div>
+          </div>
+          <div class="item-quantity">
+            Qty: <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" />
+          </div>
+          <div class="item-price">Rs ${item.price * item.quantity}</div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(itemDiv);
+      });
+
+      // Calculate discount and final total
+      const flatDiscount = calculateFlatDiscount(baseTotal);
+      const finalTotal = baseTotal - flatDiscount;
+      let discountPercentage = ((flatDiscount / baseTotal) * 100).toFixed(1);
+      if (baseTotal >= 800 && baseTotal <= 1199) {
+        discountPercentage = "13.5";
+      }
+      const rewardPoints = flatDiscount;
+
+      priceSummary.innerHTML = `
+        Base Total: Rs ${baseTotal.toFixed(2)}<br />
+        Flat Discount: ${discountPercentage}% off<br />
+        Reward Points Earned: ${rewardPoints} points
+      `;
+      totalAmountDiv.innerHTML = `Grand Total: Rs ${finalTotal.toFixed(2)}`;
+    }
+
+    // Calculate flat discount based on base total
+    function calculateFlatDiscount(total) {
+      if (total >= 150 && total <= 299) return 18;
+      else if (total >= 300 && total <= 499) return 45;
+      else if (total >= 500 && total <= 799) return 90;
+      else if (total >= 800 && total <= 1199) return 135;
+      else if (total >= 1200 && total <= 1499) return 180;
+      else if (total >= 1500 && total <= 1999) return 270;
+      else if (total >= 2000 && total <= 2999) return 360;
+      else if (total >= 3000 && total <= 4999) return 450;
+      else if (total >= 5000) return 900;
+      else return 0;
+    }
+
+    // Update quantity when changed in the cart
+    function updateQuantity(index, newQuantity) {
+      newQuantity = parseInt(newQuantity);
+      if (newQuantity < 1) return;
+      cartItems[index].quantity = newQuantity;
+      updateCartCount();
+      displayCart();
+    }
+
+    // Remove an item from the cart
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      updateCartCount();
+      displayCart();
+    }
+
+    // Show/hide sections
+    function showSection(sectionId) {
+      document.getElementById("menu").classList.add("hidden");
+      document.getElementById("cart").classList.add("hidden");
+      document.getElementById(sectionId).classList.remove("hidden");
+      if (sectionId === "cart") {
+        displayCart();
+      }
+    }
+  </script>
+</body>
+</html>
