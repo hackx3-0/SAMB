@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed ✅</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding-top: 100px;
+        }
+        .order-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: pop 0.6s ease-in-out;
+        }
+        .checkmark::after {
+            content: '✔';
+            font-size: 40px;
+            color: white;
+            font-weight: bold;
+        }
+        .order-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            animation: pop 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        .btn {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn" onclick="placeOrder()">Place Order</button>
+
+    <div class="order-container" id="orderMessage">
+        <div class="checkmark"></div>
+        <p class="order-text">Order Placed Successfully! 🎉</p>
+    </div>
+
+    <script>
+        function placeOrder() {
+            let orderMessage = document.getElementById('orderMessage');
+            orderMessage.style.display = 'flex';
+
+            // Hide animation after 3 seconds (optional)
+            setTimeout(() => {
+                orderMessage.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>

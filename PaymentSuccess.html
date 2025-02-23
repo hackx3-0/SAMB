@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Payment & Order</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('Payment_bg.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .qr-box {
+      text-align: center;
+      background: #cd8b95;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      margin-bottom: 20px;
+    }
+    .qr-box img {
+      width: 250px;
+      border-radius: 10px;
+    }
+    h3 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: #333;
+    }
+    p {
+      font-size: 18px;
+      font-weight: bold;
+      color: #555;
+    }
+    .btn {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s;
+      margin-top: 20px;
+      display: inline-block;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+    /* Overlay covers entire viewport */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Centered popup */
+    .order-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      background-color: #4CAF50;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      animation: pop 0.6s ease-in-out;
+    }
+    .checkmark::after {
+      content: '✔';
+      font-size: 40px;
+      color: white;
+      font-weight: bold;
+    }
+    .order-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      animation: pop 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      80% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="qr-box">
+    <h3>Scan & Pay via UPI</h3>
+    <img src="Gpay_QR.jpg" alt="Scan to Pay via UPI">
+    <p>UPI ID: <span style="color: #086ad4;">#SAMB11@oksbi</span></p>
+  </div>
+
+  <!-- Green Button Under the Center Box -->
+  <button class="btn" onclick="placeOrder()">Proceed to Confirm</button>
+
+  <!-- Dim overlay with centered popup -->
+  <div class="overlay" id="popupOverlay">
+    <div class="order-container">
+      <div class="checkmark"></div>
+      <p class="order-text"> Payment Successfully Done! 🎉</p>
+    </div>
+  </div>
+
+  <script>
+    function placeOrder() {
+      const overlay = document.getElementById('popupOverlay');
+      overlay.style.display = 'flex';
+      
+      // Hide the popup after 3 seconds
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
